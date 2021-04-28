@@ -46,3 +46,5 @@ const User = connection.define('user', {
         }
     }
 );
+
+export default User;
