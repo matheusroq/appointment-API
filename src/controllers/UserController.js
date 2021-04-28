@@ -7,7 +7,7 @@ class UserController {
             const user = await User.create(req.body);
             return res.json(user);
         } catch (error) {
-            return res.status(error);
+            return res.status(400).json(error);
         }
     }
 
@@ -31,7 +31,7 @@ class UserController {
             const  { name, email } = newUser;
             return res.json({ name, email });
         } catch (error) {
-            return res.status(error);
+            return res.status(400).json(error);
         }
     }
 
@@ -54,7 +54,7 @@ class UserController {
             await user.destroy();
             return res.json({ msg: 'User was destroy' });
         } catch (error) {
-            return res.status(error);
+            return res.status(400).json(error);
         }
     }
 
