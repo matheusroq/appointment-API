@@ -25,9 +25,7 @@ class Token {
                 })
             }    
 
-            
-           
-             if(!passwordIsValid) {
+             if(!( await passwordIsValid(password, user))) {
                 return res.status(400).json({
                     errors: ['Invalid password']
                 })

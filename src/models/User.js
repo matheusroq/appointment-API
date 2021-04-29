@@ -23,7 +23,7 @@ const User = connection.define('user', {
         type: Sequelize.STRING,
         validate: {
             len: {
-                args: [2, 50],
+                args: [6, 50],
                 msg: 'The password length must be between 6 and 50 characters'
             }
         } 
@@ -42,8 +42,13 @@ async function createTable() {
 
 createTable();
 
-const passwordIsValid = (password, user)  => {
-    return bcryptjs.compare(password, User.password);
+const passwordIsValid = async (password, user)  => {
+    try{
+        const comparePassword = await bcrypt.compare(password, user.password);
+        return comparePassword;
+    } catch(e) {
+        console.log(e)
+    }
   }
 
 export default User;
