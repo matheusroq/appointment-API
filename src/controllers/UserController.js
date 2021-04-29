@@ -1,13 +1,20 @@
 import User from '../models/User';
+import bcrypt from 'bcryptjs';
 
 
 class UserController {
     async store(req, res) {
         try {
-            const user = await User.create(req.body);
+            const { name, email, password } = req.body;
+            const salt = bcrypt.genSaltSync();
+            const password_hash = bcrypt.hashSync(password, salt)
+
+            const user = await User.create({ name, email, password: password_hash});
             return res.json(user);
         } catch (error) {
-            return res.status(400).json(error);
+            return res.status(400).json({
+                error: error.message
+            });
         }
     }
 
@@ -31,7 +38,9 @@ class UserController {
             const  { name, email } = newUser;
             return res.json({ name, email });
         } catch (error) {
-            return res.status(400).json(error);
+            return res.status(400).json({
+                error: error.message
+            });
         }
     }
 
@@ -54,7 +63,9 @@ class UserController {
             await user.destroy();
             return res.json({ msg: 'User was destroy' });
         } catch (error) {
-            return res.status(400).json(error);
+            return res.status(400).json({
+                error: error.message
+            });
         }
     }
 

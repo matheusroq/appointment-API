@@ -19,32 +19,33 @@ const User = connection.define('user', {
             }
         }
     },
-    password_hash: {
-        type: Sequelize.STRING,
-        defaultValue: ''
-    },
     password: {
-        type: Sequelize.VIRTUAL,
-        defaultValue: '',
+        type: Sequelize.STRING,
         validate: {
-            leng: {
-                args: [6, 50],
-                msg: 'The password length must be between 3 and 50 characters'
+            len: {
+                args: [2, 50],
+                msg: 'The password length must be between 6 and 50 characters'
             }
-        }
+        } 
     }
-},
-    {
-        hooks: {
-            beforeSave() {
-                async (user) => {
-                    if (user.password) {
-                        user.password_hash = await bcrypt.hash(user.password, 8)
-                    }
-                }
-            }
-        }
-    }
+}
 );
 
+
+async function createTable() {
+    try {
+      await User.sync({ force: false })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+createTable();
+
+const passwordIsValid = (password, user)  => {
+    return bcryptjs.compare(password, User.password);
+  }
+
 export default User;
+
+export { passwordIsValid }
