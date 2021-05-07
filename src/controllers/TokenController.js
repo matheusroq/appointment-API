@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import User, { passwordIsValid } from '../models/User';
-import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 dotenv.config();
 
