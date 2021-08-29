@@ -8,9 +8,9 @@ import tokenController from './src/controllers/TokenController';
 import loginRequired from './src/middlewares/loginRequired';
 
 //appointments
-router.get('/appointments', loginRequired, appointmentController.index);
+router.get('/appointments', appointmentController.index);
 router.get('/appointment/:id',loginRequired, appointmentController.show);
-router.post('/appointment',loginRequired, appointmentController.store);
+router.post('/appointment', appointmentController.store);
 router.put('/appointment/:id',loginRequired, appointmentController.update);
 router.delete('/appointment/:id',loginRequired, appointmentController.delete);
 

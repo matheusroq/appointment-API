@@ -1,21 +1,23 @@
-import Sequelize from 'sequelize';
-import connection from '../database/index';
+import Sequelize, { Model } from 'sequelize';
 
-const Appointment = connection.define('appointment', {
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    date: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    hour: {
-        type: Sequelize.STRING,
-        allowNull: false
+
+export default class Appointment extends Model {
+    static init(sequelize) {
+        super.init({
+            name: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            appointment: {
+                type: Sequelize.DATE,
+                allowNull: false
+            }
+        }, {
+            sequelize
+        })
+        return this
     }
-});
+}
 
-Appointment.sync({ force: false}).then(() => {});
 
-export default Appointment;
+
