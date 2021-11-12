@@ -2,7 +2,7 @@ import express from 'express';
 const app = express();
 
 import './src/database';
-import router  from './routes.js';
+import router from './routes';
 
 
 app.use(express.urlencoded({ extended: true }));
