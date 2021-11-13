@@ -40,6 +40,7 @@ Appointment.init({
 }, {
     timestamps: true,
     sequelize: sequelizeConnection,
-    paranoid: true
+    paranoid: true,
+    tableName: 'appointments'
 })
 
